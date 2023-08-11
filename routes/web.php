@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', [PropertyController::class, 'index'])->name('home');
+
+Route::get('/property/create', [PropertyController::class, 'create'])->name('property.create')->middleware('auth');
+Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
+
+Auth::routes();

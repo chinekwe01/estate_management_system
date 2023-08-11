@@ -14,7 +14,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        //
+        return view('property.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        return view('property.create');
     }
 
     /**
@@ -35,7 +35,27 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pName' => 'required',
+            'pDescription' => 'required|max:255',
+            'status' => 'required|max:255',
+            'owner' => 'required',
+            'phone_number' =>'required',
+            'address' =>'required',
+            'price' =>'required',
+        ]);
+        // dd($request->all());
+        $property = Property::create([
+            'property_name' => $request->pName,
+            'description' => $request->pDescription,
+            'status' => $request->status,
+            'owner' => $request->owner,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'price' => $request->price,
+        ]);
+
+        return redirect()->route('home')->with('success','Case created successfully.');
     }
 
     /**
