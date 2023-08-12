@@ -21,5 +21,5 @@ Route::get('/', [PropertyController::class, 'index'])->name('home');
 
 Route::get('/property/create', [PropertyController::class, 'create'])->name('property.create')->middleware('auth');
 Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
-
+Route::get('/property/{id}', [PropertyController::class, 'show'])->name('property.show');
 Auth::routes();

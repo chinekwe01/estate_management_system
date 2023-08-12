@@ -14,7 +14,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return view('property.index');
+        $properties = Property::where("status", 'free')->paginate(3);
+        return view('property.index', compact('properties'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -64,9 +65,11 @@ class PropertyController extends Controller
      * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        //
+        $properties = Property::where('id', $id)->get();
+        $property = $properties->first();
+        return view('property.show', compact('property'));
     }
 
     /**
